@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import static web.CreateAccount.getUser;
 
-@WebServlet("/authenticate")
+@WebServlet("/main")
 public class Authenticate extends HttpServlet {
 
     @EJB

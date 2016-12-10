@@ -11,7 +11,7 @@
     <input type="submit" value="Register" />
 </form>
 ${userAlreadyExists}
-<form action="authenticate" method="post">
+<form action="main" method="post">
     <input type="text" name="name" placeholder="Username.." required />
     <input type="password" name="password" placeholder="Password.." required />
     <input type="submit" value="Sign in" />
