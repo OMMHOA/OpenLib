@@ -17,7 +17,8 @@ public class CreateAccount extends HttpServlet {
     @EJB
     private UserManagerBean userManagerBean;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         System.out.println("GET received to CreateAccount");
 
 //        response.setContentType("text/html");
@@ -28,7 +29,8 @@ public class CreateAccount extends HttpServlet {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         System.out.println("POST received to CreateAccount");
 
         String name = request.getParameter("name");

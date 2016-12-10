@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -11,12 +12,15 @@ public class Borrow implements Serializable{
     private int id;
 
     @ManyToOne
+    @NotNull
     private User lender;
 
     @ManyToOne
+    @NotNull
     private User borrower;
 
     @ManyToOne
+    @NotNull
     private Book book;
 
     public Borrow() {
