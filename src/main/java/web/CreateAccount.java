@@ -47,7 +47,7 @@ public class CreateAccount extends HttpServlet {
         request.getRequestDispatcher("main.jsp").forward(request, response);
     }
 
-    private User getUser(String name, String password) {
+    static User getUser(String name, String password) {
         User user = new User();
         user.setUsername(name);
         user.setPassword(password);

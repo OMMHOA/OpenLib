@@ -17,7 +17,16 @@ public class UserManagerBean {
     }
 
     public boolean isUserAlreadyExists(User user) {
-        User existingUser = userFacade.find(user.getUsername());
+        User existingUser = getUser(user);
         return existingUser != null;
+    }
+
+    public boolean isAuthCorrect(User user) {
+        User existingUser = getUser(user);
+        return existingUser != null && existingUser.getPassword().equals(user.getPassword());
+    }
+
+    private User getUser(User user) {
+        return userFacade.find(user.getUsername());
     }
 }

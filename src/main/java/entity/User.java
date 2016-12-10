@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,6 +10,8 @@ public class User implements Serializable{
 
     @Id
     private String username;
+
+    @NotNull
     private String password;
 
     @OneToMany(mappedBy = "owner")
