@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/CreateAccount")
 public class CreateAccount extends HttpServlet {
@@ -35,6 +34,8 @@ public class CreateAccount extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
 
+        if (notValid(request, response, password, name)) return;
+
         User user = getUser(name, password);
         if (userManagerBean.isUserAlreadyExists(user)) {
             request.setAttribute("userAlreadyExists", "User already exists!");
@@ -45,6 +46,16 @@ public class CreateAccount extends HttpServlet {
 
         request.setAttribute("username", name);
         request.getRequestDispatcher("main.jsp").forward(request, response);
+    }
+
+    private boolean notValid(HttpServletRequest request, HttpServletResponse response,
+                             String password, String name) throws ServletException, IOException {
+        if (password.length() == 0 || name.length() == 0) {
+            request.setAttribute("userAlreadyExists", "Password and username field can not be empty!");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            return true;
+        }
+        return false;
     }
 
     static User getUser(String name, String password) {
