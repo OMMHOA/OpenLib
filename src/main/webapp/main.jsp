@@ -17,7 +17,7 @@
             <option value="not_classic">Not Classic</option>
         </select>
         <br/>
-        <button value="Upload" type="SUBMIT"></button>
+        <input type="SUBMIT" value="Upload">
     </form>
 </body>
 </html>
