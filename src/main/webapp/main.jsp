@@ -6,11 +6,15 @@
 <body>
     <h1>Welcome ${username} </h1>
     <form action="upload" method="post">
-        <label>Upload a book</label>
+        <label><h2>Upload a book</h2></label>
         <br/>
         <input type="text" name="title" placeholder="Book title..">
         <br/>
         <input type="text" name="author" placeholder="Author..">
+        <br/>
+        <label>
+            Genre:
+        </label>
         <br/>
         <select name="genre" >
             <option value="classic">Classic</option>

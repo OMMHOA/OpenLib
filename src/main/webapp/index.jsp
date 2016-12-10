@@ -4,13 +4,15 @@
 <title>Welcome to Open Library</title>
 </head>
 <body>
-<h2>Register or sign in</h2>
+<h1>Register or sign in</h1>
+<h2>Register</h2>
 <form action="CreateAccount" method="post">
     <input type="text" name="name" placeholder="Username.." required />
     <input type="password" name="password" placeholder="Password.." required />
     <input type="submit" value="Register" />
 </form>
 ${userAlreadyExists}
+<h2>Sign in</h2>
 <form action="Authenticate" method="post">
     <input type="text" name="name" placeholder="Username.." required />
     <input type="password" name="password" placeholder="Password.." required />
