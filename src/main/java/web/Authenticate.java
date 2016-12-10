@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static web.CreateAccount.getUser;
+import static web.CreateAccount.notValid;
 
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
@@ -34,10 +35,13 @@ public class Authenticate extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
 
+        if (notValid(request, response, password, name)) return;
+
         User user = getUser(name, password);
         if (userManagerBean.isAuthCorrect(user)) {
             request.setAttribute("username", name);
             request.getRequestDispatcher("main.jsp").forward(request, response);
+            request.getSession().setAttribute("user", user);
             return;
         }
 

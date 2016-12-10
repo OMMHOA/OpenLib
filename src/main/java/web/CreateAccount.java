@@ -46,11 +46,10 @@ public class CreateAccount extends HttpServlet {
         }
         userManagerBean.createUser(user);
 
-        request.setAttribute("username", name);
-        request.getRequestDispatcher("main.jsp").forward(request, response);
+        request.getRequestDispatcher("Authenticate").forward(request, response);
     }
 
-    private boolean notValid(HttpServletRequest request, HttpServletResponse response,
+    static boolean notValid(HttpServletRequest request, HttpServletResponse response,
                              String password, String name) throws ServletException, IOException {
         if (password.length() == 0 || name.length() == 0) {
             request.setAttribute("userAlreadyExists", "Password and username field can not be empty!");

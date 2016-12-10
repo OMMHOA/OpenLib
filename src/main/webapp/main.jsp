@@ -5,6 +5,7 @@
 </head>
 <body>
     <h1>Welcome ${username} </h1>
+    <h2>You are ${sessionScope.user.username}</h2>
     <form action="upload" method="post">
         <label><h2>Upload a book</h2></label>
         <br/>
