@@ -11,8 +11,10 @@
     <title>Upload</title>
 </head>
 <body>
+<h1>Upload a book</h1>
+<a href="Authenticate">Back</a>
+
 <form action="upload" method="post">
-    <label><h2>Upload a book</h2></label>
     <br/>
     <input type="text" name="title" placeholder="Book title..">
     <br/>

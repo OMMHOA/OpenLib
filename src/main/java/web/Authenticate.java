@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static web.CreateAccount.notValid;
+import static web.utility.Check.notValid;
 
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {

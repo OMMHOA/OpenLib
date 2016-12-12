@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToAuth;
 import static web.utility.Navigation.backToIndexOrMain;
 
@@ -55,14 +56,4 @@ public class CreateAccount extends HttpServlet {
 
         backToAuth(request, response);
     }
-
-    static boolean notValid(String... strings) {
-        for (String string : strings) {
-            if (string == null || string.length() == 0) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }

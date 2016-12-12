@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static web.CreateAccount.notValid;
+import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToAuth;
 import static web.utility.Navigation.backToIndexOrMain;
 import static web.utility.Navigation.backToMain;
