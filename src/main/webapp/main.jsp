@@ -4,8 +4,7 @@
     <title>Open Library</title>
 </head>
 <body>
-    <h1>Welcome ${username} </h1>
-    <h2>You are ${sessionScope.user.username}</h2>
+    <h1>Welcome ${sessionScope.user.username} </h1>
     <form action="upload" method="post">
         <label><h2>Upload a book</h2></label>
         <br/>

@@ -23,25 +23,33 @@ public class Authenticate extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("GET received to CreateAccount");
+        System.out.println("GET received to Authenticate");
 
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            return;
+        }
+        authenticate(request, response, user.getUsername(), user.getPassword());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("POST received to CreateAccount");
+        System.out.println("POST received to Authenticate");
 
         String name = request.getParameter("name");
         String password = request.getParameter("password");
 
-        if (notValid(request, response, password, name)) return;
+        authenticate(request, response, name, password);
+    }
+
+    private void authenticate(HttpServletRequest request, HttpServletResponse response, String name, String password) throws ServletException, IOException {
+        if (notValid(name, password)) return;
 
         User user = getUser(name, password);
         if (userManagerBean.isAuthCorrect(user)) {
-            request.setAttribute("username", name);
-            request.getRequestDispatcher("main.jsp").forward(request, response);
             request.getSession().setAttribute("user", user);
+            request.getRequestDispatcher("main.jsp").forward(request, response);
             return;
         }
 

@@ -26,6 +26,12 @@ public class CreateAccount extends HttpServlet {
 //
 //        out.println("hello");
 
+        User user = (User) request.getSession().getAttribute("user");
+        if (user != null) {
+            request.getRequestDispatcher("Authenticate").forward(request, response);
+            return;
+        }
+
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
@@ -36,7 +42,11 @@ public class CreateAccount extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
 
-        if (notValid(request, response, password, name)) return;
+        if (notValid(name, password)) {
+            request.setAttribute("userAlreadyExists", "Password and username field can not be empty!");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            return;
+        }
 
         User user = getUser(name, password);
         if (userManagerBean.isUserAlreadyExists(user)) {
@@ -49,14 +59,8 @@ public class CreateAccount extends HttpServlet {
         request.getRequestDispatcher("Authenticate").forward(request, response);
     }
 
-    static boolean notValid(HttpServletRequest request, HttpServletResponse response,
-                             String password, String name) throws ServletException, IOException {
-        if (password.length() == 0 || name.length() == 0) {
-            request.setAttribute("userAlreadyExists", "Password and username field can not be empty!");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-            return true;
-        }
-        return false;
+    static boolean notValid(String name, String password) {
+        return password.length() == 0 || name.length() == 0;
     }
 
     static User getUser(String name, String password) {

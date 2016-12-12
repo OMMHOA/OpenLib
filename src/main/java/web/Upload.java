@@ -18,17 +18,17 @@ public class Upload extends HttpServlet {
     private UserManagerBean userManagerBean;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("GET received to upload");
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("POST received to upload");
-        User user =(User) req.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         System.out.println(user.getUsername());
     }
 }
