@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static web.utility.Navigation.backToAuth;
+import static web.utility.Navigation.backToIndexOrMain;
+
 @WebServlet("/CreateAccount")
 public class CreateAccount extends HttpServlet {
 
@@ -26,13 +29,7 @@ public class CreateAccount extends HttpServlet {
 //
 //        out.println("hello");
 
-        User user = (User) request.getSession().getAttribute("user");
-        if (user != null) {
-            backToAuth(request, response);
-            return;
-        }
-
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        backToIndexOrMain(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -48,7 +45,7 @@ public class CreateAccount extends HttpServlet {
             return;
         }
 
-        User user = getUser(name, password);
+        User user = new User(name, password);
         if (userManagerBean.isUserAlreadyExists(user)) {
             request.setAttribute("userAlreadyExists", "User already exists!");
             request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -68,14 +65,4 @@ public class CreateAccount extends HttpServlet {
         return false;
     }
 
-    static User getUser(String name, String password) {
-        User user = new User();
-        user.setUsername(name);
-        user.setPassword(password);
-        return user;
-    }
-
-    static void backToAuth(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Authenticate").forward(request, response);
-    }
 }

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static web.CreateAccount.getUser;
 import static web.CreateAccount.notValid;
 
 @WebServlet("/Authenticate")
@@ -46,7 +45,7 @@ public class Authenticate extends HttpServlet {
     private void authenticate(HttpServletRequest request, HttpServletResponse response, String name, String password) throws ServletException, IOException {
         if (notValid(name, password)) return;
 
-        User user = getUser(name, password);
+        User user = new User(name, password);
         if (userManagerBean.isAuthCorrect(user)) {
             request.getSession().setAttribute("user", user);
             request.getRequestDispatcher("main.jsp").forward(request, response);

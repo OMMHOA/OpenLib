@@ -1,6 +1,7 @@
 package service;
 
 import dal.UserFacade;
+import entity.Book;
 import entity.User;
 
 import javax.ejb.EJB;
@@ -29,4 +30,5 @@ public class UserManagerBean {
     private User getUser(User user) {
         return userFacade.find(user.getUsername());
     }
+
 }
