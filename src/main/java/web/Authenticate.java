@@ -14,7 +14,6 @@ import java.io.IOException;
 
 import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToIndex;
-import static web.utility.Navigation.backToMain;
 
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
@@ -51,7 +50,7 @@ public class Authenticate extends HttpServlet {
         User user = new User(name, password);
         if (userManagerBean.isAuthCorrect(user)) {
             request.getSession().setAttribute("user", user);
-            backToMain(request, response);
+            request.getRequestDispatcher("Main").forward(request, response);
             return;
         }
 

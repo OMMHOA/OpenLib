@@ -15,7 +15,6 @@ import java.io.IOException;
 import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToAuth;
 import static web.utility.Navigation.backToIndexOrMain;
-import static web.utility.Navigation.backToMain;
 
 @WebServlet("/upload")
 public class Upload extends HttpServlet {
@@ -52,6 +51,6 @@ public class Upload extends HttpServlet {
         Book book = new Book(title, author, genre, user);
         bookManagerBean.createBook(book);
 
-        backToMain(request, response);
+        backToIndexOrMain(request, response);
     }
 }
