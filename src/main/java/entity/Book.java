@@ -28,6 +28,13 @@ public class Book implements Serializable{
     public Book() {
     }
 
+    public Book(String title, String author, String genre, User owner) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.owner = owner;
+    }
+
     public int getId() {
         return id;
     }

@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static web.CreateAccount.backToAuth;
+import static web.CreateAccount.notValid;
+
 @WebServlet("/upload")
 public class Upload extends HttpServlet {
 
@@ -29,6 +32,16 @@ public class Upload extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("POST received to upload");
         User user = (User) request.getSession().getAttribute("user");
-        System.out.println(user.getUsername());
+        if (user == null) {
+            request.getRequestDispatcher("Authenticate").forward(request, response);
+        }
+
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
+        String genre = request.getParameter("genre");
+
+        if (notValid(title, author, genre)) {
+            backToAuth(request, response);
+        }
     }
 }

@@ -28,7 +28,7 @@ public class CreateAccount extends HttpServlet {
 
         User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
-            request.getRequestDispatcher("Authenticate").forward(request, response);
+            backToAuth(request, response);
             return;
         }
 
@@ -56,11 +56,16 @@ public class CreateAccount extends HttpServlet {
         }
         userManagerBean.createUser(user);
 
-        request.getRequestDispatcher("Authenticate").forward(request, response);
+        backToAuth(request, response);
     }
 
-    static boolean notValid(String name, String password) {
-        return password.length() == 0 || name.length() == 0;
+    static boolean notValid(String... strings) {
+        for (String string : strings) {
+            if (string == null || string.length() == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static User getUser(String name, String password) {
@@ -68,5 +73,9 @@ public class CreateAccount extends HttpServlet {
         user.setUsername(name);
         user.setPassword(password);
         return user;
+    }
+
+    static void backToAuth(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("Authenticate").forward(request, response);
     }
 }
