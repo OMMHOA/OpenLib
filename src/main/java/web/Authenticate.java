@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static web.utility.Check.notValid;
+import static web.utility.Navigation.backToIndex;
+import static web.utility.Navigation.backToMain;
 
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
@@ -26,7 +28,7 @@ public class Authenticate extends HttpServlet {
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            backToIndex(request, response);
             return;
         }
         authenticate(request, response, user.getUsername(), user.getPassword());
@@ -42,17 +44,18 @@ public class Authenticate extends HttpServlet {
         authenticate(request, response, name, password);
     }
 
-    private void authenticate(HttpServletRequest request, HttpServletResponse response, String name, String password) throws ServletException, IOException {
+    private void authenticate(HttpServletRequest request, HttpServletResponse response, String name, String password)
+            throws ServletException, IOException {
         if (notValid(name, password)) return;
 
         User user = new User(name, password);
         if (userManagerBean.isAuthCorrect(user)) {
             request.getSession().setAttribute("user", user);
-            request.getRequestDispatcher("main.jsp").forward(request, response);
+            backToMain(request, response);
             return;
         }
 
         request.setAttribute("loginFailed", "Invalid username or password");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        backToIndex(request, response);
     }
 }

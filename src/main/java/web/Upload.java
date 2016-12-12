@@ -3,7 +3,6 @@ package web;
 import entity.Book;
 import entity.User;
 import service.BookManagerBean;
-import service.UserManagerBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
