@@ -19,4 +19,8 @@ public class BookManagerBean {
     public List<Book> getAll() {
         return bookFacade.findAll();
     }
+
+    public List<Book> getByOwner(String ownerId) {
+        return bookFacade.findAllByOwner(ownerId);
+    }
 }

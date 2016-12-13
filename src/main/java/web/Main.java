@@ -47,14 +47,22 @@ public class Main extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("POST received to Main");
-        String whatToList = (String) req.getAttribute("list");
-        if (whatToList == null || whatToList.equals("all")) {
-            List<Book> books = bookManagerBean.getAll();
-            List<User> users = userManagerBean.getAll();
-            req.setAttribute("books", books);
-            req.setAttribute("users", users);
-            backToMain(req, resp);
+
+        List<User> users = userManagerBean.getAll();
+        req.setAttribute("users", users);
+
+        String owner = req.getParameter("owner");
+        System.out.println(owner);
+        List<Book> books;
+        if (owner == null || owner.equals("all")) {
+            books = bookManagerBean.getAll();
+
+        } else {
+            System.out.println("else branch");
+            books = bookManagerBean.getByOwner(owner);
         }
+        req.setAttribute("books", books);
+        backToMain(req, resp);
     }
 
     private boolean isUserAuthentic(HttpServletRequest request) {
