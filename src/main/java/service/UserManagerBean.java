@@ -6,6 +6,7 @@ import entity.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class UserManagerBean {
@@ -31,4 +32,7 @@ public class UserManagerBean {
         return userFacade.find(user.getUsername());
     }
 
+    public List<User> getAll() {
+        return userFacade.findAll();
+    }
 }

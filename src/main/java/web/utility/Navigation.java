@@ -20,14 +20,4 @@ public abstract class Navigation {
             throws ServletException, IOException {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
-
-    public static void backToIndexOrMain(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user != null) {
-            backToAuth(request, response);
-            return;
-        }
-
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-    }
 }

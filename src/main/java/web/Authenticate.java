@@ -10,10 +10,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static web.utility.Check.notValid;
+import static web.utility.Check.objectNull;
 import static web.utility.Navigation.backToIndex;
+import static web.utility.Navigation.backToMain;
+
 
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
@@ -21,18 +25,21 @@ public class Authenticate extends HttpServlet {
     @EJB
     private UserManagerBean userManagerBean;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("GET received to Authenticate");
 
+        HttpSession session = request.getSession(false);
+        if (objectNull(request, response, session)) return;
+
         User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            backToIndex(request, response);
-            return;
-        }
+        if (objectNull(request, response, user)) return;
         authenticate(request, response, user.getUsername(), user.getPassword());
     }
 
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("POST received to Authenticate");
@@ -50,7 +57,7 @@ public class Authenticate extends HttpServlet {
         User user = new User(name, password);
         if (userManagerBean.isAuthCorrect(user)) {
             request.getSession().setAttribute("user", user);
-            request.getRequestDispatcher("Main").forward(request, response);
+            backToMain(request, response);
             return;
         }
 

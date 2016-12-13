@@ -14,7 +14,6 @@ import java.io.IOException;
 import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToAuth;
 import static web.utility.Navigation.backToIndex;
-import static web.utility.Navigation.backToIndexOrMain;
 
 @WebServlet("/CreateAccount")
 public class CreateAccount extends HttpServlet {
@@ -22,6 +21,7 @@ public class CreateAccount extends HttpServlet {
     @EJB
     private UserManagerBean userManagerBean;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("GET received to CreateAccount");
@@ -31,9 +31,10 @@ public class CreateAccount extends HttpServlet {
 //
 //        out.println("hello");
 
-        backToIndexOrMain(request, response);
+        backToAuth(request, response);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("POST received to CreateAccount");

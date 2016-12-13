@@ -14,7 +14,6 @@ import java.io.IOException;
 
 import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToAuth;
-import static web.utility.Navigation.backToIndexOrMain;
 
 @WebServlet("/upload")
 public class Upload extends HttpServlet {
@@ -27,7 +26,7 @@ public class Upload extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("GET received to upload");
 
-        backToIndexOrMain(request, response);
+        backToAuth(request, response);
     }
 
     @Override
@@ -51,6 +50,6 @@ public class Upload extends HttpServlet {
         Book book = new Book(title, author, genre, user);
         bookManagerBean.createBook(book);
 
-        backToIndexOrMain(request, response);
+        backToAuth(request, response);
     }
 }

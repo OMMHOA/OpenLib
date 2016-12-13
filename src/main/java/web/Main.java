@@ -1,7 +1,9 @@
 package web;
 
 import entity.Book;
+import entity.User;
 import service.BookManagerBean;
+import service.UserManagerBean;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static web.utility.Navigation.backToAuth;
 import static web.utility.Navigation.backToMain;
 
 @WebServlet("/Main")
@@ -20,9 +23,13 @@ public class Main extends HttpServlet {
     @EJB
     BookManagerBean bookManagerBean;
 
+    @EJB
+    UserManagerBean userManagerBean;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("GET received to Main");
+        backToAuth(req, resp);
     }
 
     @Override
@@ -31,13 +38,10 @@ public class Main extends HttpServlet {
         String whatToList = (String) req.getAttribute("list");
         if (whatToList == null || whatToList.equals("all")) {
             List<Book> books = bookManagerBean.getAll();
+            List<User> users = userManagerBean.getAll();
             req.setAttribute("books", books);
+            req.setAttribute("users", users);
             backToMain(req, resp);
         }
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
     }
 }
