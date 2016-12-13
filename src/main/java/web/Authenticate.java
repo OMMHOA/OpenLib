@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static web.utility.Check.notValid;
-import static web.utility.Check.objectNull;
 import static web.utility.Navigation.backToIndex;
 import static web.utility.Navigation.backToMain;
 
@@ -31,10 +30,17 @@ public class Authenticate extends HttpServlet {
         System.out.println("GET received to Authenticate");
 
         HttpSession session = request.getSession(false);
-        if (objectNull(request, response, session)) return;
+        if (session == null) {
+            backToIndex(request, response);
+            return;
+        }
 
         User user = (User) request.getSession().getAttribute("user");
-        if (objectNull(request, response, user)) return;
+        if (user == null) {
+            backToIndex(request, response);
+            return;
+        }
+
         authenticate(request, response, user.getUsername(), user.getPassword());
     }
 

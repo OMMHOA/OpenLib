@@ -29,6 +29,13 @@ public class Main extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("GET received to Main");
+
+        List<Book> books = bookManagerBean.getAll();
+        List<User> users = userManagerBean.getAll();
+        req.setAttribute("books", books);
+        req.setAttribute("users", users);
+
+
         backToAuth(req, resp);
     }
 
