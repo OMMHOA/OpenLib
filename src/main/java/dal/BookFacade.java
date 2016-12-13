@@ -37,4 +37,40 @@ public class BookFacade extends AbstractFacade<Book>{
         query.setParameter(p, ownerId);
         return query.getResultList();
     }
+
+    public List<Book> findAllByTitle(String title) {
+        CriteriaBuilder cb = em().getCriteriaBuilder();
+        CriteriaQuery<Book> cq= cb.createQuery(Book.class);
+        Root<Book> b = cq.from(Book.class);
+        ParameterExpression<String> p = cb.parameter(String.class);
+        cq.select(b).where(
+                cb.like(
+                        cb.lower(
+                                b.<String>get("title")
+                        ), p
+                )
+        );
+        TypedQuery<Book> query = em().createQuery(cq);
+        String t = "%" + title.toLowerCase() + "%";
+        query.setParameter(p, t);
+        return query.getResultList();
+    }
+
+    public List<Book> findAllByAuthor(String author) {
+        CriteriaBuilder cb = em().getCriteriaBuilder();
+        CriteriaQuery<Book> cq= cb.createQuery(Book.class);
+        Root<Book> b = cq.from(Book.class);
+        ParameterExpression<String> p = cb.parameter(String.class);
+        cq.select(b).where(
+                cb.like(
+                        cb.lower(
+                                b.<String>get("author")
+                        ), p
+                )
+        );
+        TypedQuery<Book> query = em().createQuery(cq);
+        String a = "%" + author.toLowerCase() + "%";
+        query.setParameter(p, a);
+        return query.getResultList();
+    }
 }

@@ -23,4 +23,12 @@ public class BookManagerBean {
     public List<Book> getByOwner(String ownerId) {
         return bookFacade.findAllByOwner(ownerId);
     }
+
+    public List<Book> getByTitle(String title) {
+        return bookFacade.findAllByTitle(title.toLowerCase());
+    }
+
+    public List<Book> getByAuthor(String author) {
+        return bookFacade.findAllByAuthor(author.toLowerCase());
+    }
 }

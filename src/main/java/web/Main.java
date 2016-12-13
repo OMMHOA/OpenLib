@@ -51,14 +51,19 @@ public class Main extends HttpServlet {
         List<User> users = userManagerBean.getAll();
         req.setAttribute("users", users);
 
-        String owner = req.getParameter("owner");
-        System.out.println(owner);
-        List<Book> books;
-        if (owner == null || owner.equals("all")) {
-            books = bookManagerBean.getAll();
 
+        List<Book> books;
+
+        String title = req.getParameter("title");
+        String author = req.getParameter("author");
+        String owner = req.getParameter("owner");
+        if (!notValid(title)) {
+            books = bookManagerBean.getByTitle(title);
+        } else if (!notValid(author)) {
+            books = bookManagerBean.getByAuthor(author);
+        } else if (owner == null || owner.equals("all")) {
+            books = bookManagerBean.getAll();
         } else {
-            System.out.println("else branch");
             books = bookManagerBean.getByOwner(owner);
         }
         req.setAttribute("books", books);

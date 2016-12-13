@@ -12,8 +12,9 @@
         <input type="submit" value="log out">
     </form>
     <form action="Main" method="post">
-        <label><h2>Find books owned by: </h2></label>
+        <label><h2>List books owned by: </h2></label>
         <select name="owner">
+            <option value="all">List all books</option>
             <c:forEach items="${users}" var="user">
                 <option value="${user.username}">${user.username}</option>
             </c:forEach>
@@ -21,6 +22,14 @@
         <input type="submit" value="List">
     </form>
     <br/>
+    <form action="Main" method="post">
+        <input type="text" name="title" placeholder="Search by title..">
+        <input type="submit" value="Search">
+    </form>
+    <form action="Main" method="post">
+        <input type="text" name="author" placeholder="Search by author..">
+        <input type="submit" value="Search">
+    </form>
     <table>
         <thead>
             <tr>
