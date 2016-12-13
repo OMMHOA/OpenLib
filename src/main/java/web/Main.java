@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static web.utility.Navigation.backToAuth;
+import static web.utility.Check.checkSessionAndGetUser;
+import static web.utility.Check.notValid;
+import static web.utility.Navigation.backToIndex;
 import static web.utility.Navigation.backToMain;
 
 @WebServlet("/Main")
@@ -35,8 +37,11 @@ public class Main extends HttpServlet {
         req.setAttribute("books", books);
         req.setAttribute("users", users);
 
-
-        backToAuth(req, resp);
+        if (isUserAuthentic(req)) {
+            backToMain(req, resp);
+        } else {
+            backToIndex(req, resp);
+        }
     }
 
     @Override
@@ -50,5 +55,12 @@ public class Main extends HttpServlet {
             req.setAttribute("users", users);
             backToMain(req, resp);
         }
+    }
+
+    private boolean isUserAuthentic(HttpServletRequest request) {
+        User user = checkSessionAndGetUser(request);
+        return user != null && !notValid(user.getUsername(), user.getPassword())
+                && userManagerBean.isAuthCorrect(user);
+
     }
 }

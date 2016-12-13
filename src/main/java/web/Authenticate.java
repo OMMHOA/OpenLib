@@ -10,9 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static web.utility.Check.checkSessionAndGetUser;
 import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToIndex;
 import static web.utility.Navigation.backToMain;
@@ -29,13 +29,7 @@ public class Authenticate extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("GET received to Authenticate");
 
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            backToIndex(request, response);
-            return;
-        }
-
-        User user = (User) request.getSession().getAttribute("user");
+        User user = checkSessionAndGetUser(request);
         if (user == null) {
             backToIndex(request, response);
             return;
@@ -58,12 +52,13 @@ public class Authenticate extends HttpServlet {
 
     private void authenticate(HttpServletRequest request, HttpServletResponse response, String name, String password)
             throws ServletException, IOException {
+
         if (notValid(name, password)) return;
 
         User user = new User(name, password);
         if (userManagerBean.isAuthCorrect(user)) {
             request.getSession().setAttribute("user", user);
-            backToMain(request, response);
+            request.getRequestDispatcher("Main").forward(request, response);
             return;
         }
 
