@@ -1,7 +1,5 @@
 package web.utility;
 
-import entity.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,5 +17,10 @@ public abstract class Navigation {
     public static void backToIndex(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+
+    public static void backToNologin(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("nologin.jsp").forward(request, response);
     }
 }

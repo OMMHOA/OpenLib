@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static web.utility.AttributeKeys.*;
 import static web.utility.Check.checkSessionAndGetUser;
 import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToIndex;
 import static web.utility.Navigation.backToMain;
+import static web.utility.Navigation.backToNologin;
 
 @WebServlet("/Main")
 public class Main extends HttpServlet {
@@ -32,15 +34,13 @@ public class Main extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("GET received to Main");
 
-        List<Book> books = bookManagerBean.getAll();
-        List<User> users = userManagerBean.getAll();
-        req.getSession().setAttribute("books", books);
-        req.getSession().setAttribute("users", users);
+        req.getSession().setAttribute(BOOKS, bookManagerBean.getAll());
+        req.getSession().setAttribute(USERS, userManagerBean.getAll());
 
         if (isUserAuthentic(req)) {
             backToMain(req, resp);
         } else {
-            backToIndex(req, resp);
+            backToNologin(req, resp);
         }
     }
 
@@ -49,14 +49,13 @@ public class Main extends HttpServlet {
         System.out.println("POST received to Main");
 
         List<User> users = userManagerBean.getAll();
-        req.getSession().setAttribute("users", users);
-
+        req.getSession().setAttribute(USERS, users);
 
         List<Book> books;
 
-        String title = req.getParameter("title");
-        String author = req.getParameter("author");
-        String owner = req.getParameter("owner");
+        String title = req.getParameter(TITLE);
+        String author = req.getParameter(AUTHOR);
+        String owner = req.getParameter(OWNER);
         if (!notValid(title)) {
             books = bookManagerBean.getByTitle(title);
         } else if (!notValid(author)) {
@@ -66,8 +65,12 @@ public class Main extends HttpServlet {
         } else {
             books = bookManagerBean.getByOwner(owner);
         }
-        req.getSession().setAttribute("books", books);
-        backToMain(req, resp);
+        req.getSession().setAttribute(BOOKS, books);
+        if (isUserAuthentic(req)) {
+            backToMain(req, resp);
+        } else {
+            backToNologin(req, resp);
+        }
     }
 
     private boolean isUserAuthentic(HttpServletRequest request) {

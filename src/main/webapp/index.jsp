@@ -19,5 +19,8 @@ ${userAlreadyExists}
     <input type="submit" value="Sign in" />
 </form>
 ${loginFailed}
+<form action="guest" method="get">
+    <input type="submit" value="Continue as guest">
+</form>
 </body>
 </html>
