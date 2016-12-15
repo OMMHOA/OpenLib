@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static web.utility.Navigation.backToAuth;
-import static web.utility.Navigation.backToIndex;
+import static web.utility.Navigation.backToIndexJsp;
 
 @WebServlet("/logout")
 public class LogOut extends HttpServlet {
@@ -20,6 +20,6 @@ public class LogOut extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().invalidate();
-        backToIndex(req, resp);
+        backToIndexJsp(req, resp);
     }
 }

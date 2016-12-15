@@ -14,8 +14,7 @@ import java.io.IOException;
 
 import static web.utility.Check.checkSessionAndGetUser;
 import static web.utility.Check.notValid;
-import static web.utility.Navigation.backToIndex;
-import static web.utility.Navigation.backToMain;
+import static web.utility.Navigation.backToIndexJsp;
 
 
 @WebServlet("/Authenticate")
@@ -31,7 +30,7 @@ public class Authenticate extends HttpServlet {
 
         User user = checkSessionAndGetUser(request);
         if (user == null) {
-            backToIndex(request, response);
+            backToIndexJsp(request, response);
             return;
         }
 
@@ -63,6 +62,6 @@ public class Authenticate extends HttpServlet {
         }
 
         request.setAttribute("loginFailed", "Invalid username or password");
-        backToIndex(request, response);
+        backToIndexJsp(request, response);
     }
 }

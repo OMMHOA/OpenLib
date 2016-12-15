@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import static web.utility.AttributeKeys.BOOKS;
 import static web.utility.AttributeKeys.USERS;
-import static web.utility.Navigation.backToNologin;
+import static web.utility.Navigation.backToNologinJsp;
 
 @WebServlet("/guest")
 public class Guest extends HttpServlet {
@@ -29,6 +29,6 @@ public class Guest extends HttpServlet {
         System.out.println("GET received to guest");
         req.getSession().setAttribute(BOOKS, bookManagerBean.getAll());
         req.getSession().setAttribute(USERS, userManagerBean.getAll());
-        backToNologin(req, resp);
+        backToNologinJsp(req, resp);
     }
 }

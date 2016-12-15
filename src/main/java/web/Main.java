@@ -17,9 +17,8 @@ import java.util.List;
 import static web.utility.AttributeKeys.*;
 import static web.utility.Check.checkSessionAndGetUser;
 import static web.utility.Check.notValid;
-import static web.utility.Navigation.backToIndex;
-import static web.utility.Navigation.backToMain;
-import static web.utility.Navigation.backToNologin;
+import static web.utility.Navigation.backToMainJsp;
+import static web.utility.Navigation.backToNologinJsp;
 
 @WebServlet("/Main")
 public class Main extends HttpServlet {
@@ -38,9 +37,9 @@ public class Main extends HttpServlet {
         req.getSession().setAttribute(USERS, userManagerBean.getAll());
 
         if (isUserAuthentic(req)) {
-            backToMain(req, resp);
+            backToMainJsp(req, resp);
         } else {
-            backToNologin(req, resp);
+            backToNologinJsp(req, resp);
         }
     }
 
@@ -67,9 +66,9 @@ public class Main extends HttpServlet {
         }
         req.getSession().setAttribute(BOOKS, books);
         if (isUserAuthentic(req)) {
-            backToMain(req, resp);
+            backToMainJsp(req, resp);
         } else {
-            backToNologin(req, resp);
+            backToNologinJsp(req, resp);
         }
     }
 

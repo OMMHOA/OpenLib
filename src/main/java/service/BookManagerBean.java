@@ -35,4 +35,8 @@ public class BookManagerBean {
     public Book getById(int id) {
         return bookFacade.find(id);
     }
+
+    public void remove(Book book) {
+        bookFacade.remove(book);
+    }
 }

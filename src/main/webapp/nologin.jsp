@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c"
            uri="http://java.sun.com/jsp/jstl/core" %>
-<a href="/openlib">Back</a>
+<a href="/openlib">Back to login</a>
+<a href="Main">Back to main</a>
 <form action="Main" method="post">
     <select name="owner">
         <option value="all">List all books</option>

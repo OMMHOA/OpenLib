@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToAuth;
-import static web.utility.Navigation.backToIndex;
+import static web.utility.Navigation.backToIndexJsp;
 
 @WebServlet("/CreateAccount")
 public class CreateAccount extends HttpServlet {
@@ -44,14 +44,14 @@ public class CreateAccount extends HttpServlet {
 
         if (notValid(name, password)) {
             request.setAttribute("userAlreadyExists", "Password and username field can not be empty!");
-            backToIndex(request, response);
+            backToIndexJsp(request, response);
             return;
         }
 
         User user = new User(name, password);
         if (userManagerBean.isUserAlreadyExists(user)) {
             request.setAttribute("userAlreadyExists", "User already exists!");
-            backToIndex(request, response);
+            backToIndexJsp(request, response);
             return;
         }
         userManagerBean.createUser(user);
