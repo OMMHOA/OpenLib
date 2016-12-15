@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Stateless
-public class BookFacade extends AbstractFacade<Book>{
+public class BookFacade extends AbstractFacade<Book> {
 
     @PersistenceContext
     private EntityManager em;
@@ -29,7 +29,7 @@ public class BookFacade extends AbstractFacade<Book>{
 
     public List<Book> findAllByOwner(String ownerId) {
         CriteriaBuilder cb = em().getCriteriaBuilder();
-        CriteriaQuery<Book> cq= cb.createQuery(Book.class);
+        CriteriaQuery<Book> cq = cb.createQuery(Book.class);
         Root<Book> b = cq.from(Book.class);
         ParameterExpression<String> p = cb.parameter(String.class);
         cq.select(b).where(cb.equal(b.get("owner").get("username"), p));
@@ -40,7 +40,7 @@ public class BookFacade extends AbstractFacade<Book>{
 
     public List<Book> findAllByTitle(String title) {
         CriteriaBuilder cb = em().getCriteriaBuilder();
-        CriteriaQuery<Book> cq= cb.createQuery(Book.class);
+        CriteriaQuery<Book> cq = cb.createQuery(Book.class);
         Root<Book> b = cq.from(Book.class);
         ParameterExpression<String> p = cb.parameter(String.class);
         cq.select(b).where(
@@ -58,7 +58,7 @@ public class BookFacade extends AbstractFacade<Book>{
 
     public List<Book> findAllByAuthor(String author) {
         CriteriaBuilder cb = em().getCriteriaBuilder();
-        CriteriaQuery<Book> cq= cb.createQuery(Book.class);
+        CriteriaQuery<Book> cq = cb.createQuery(Book.class);
         Root<Book> b = cq.from(Book.class);
         ParameterExpression<String> p = cb.parameter(String.class);
         cq.select(b).where(

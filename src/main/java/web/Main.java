@@ -34,8 +34,8 @@ public class Main extends HttpServlet {
 
         List<Book> books = bookManagerBean.getAll();
         List<User> users = userManagerBean.getAll();
-        req.setAttribute("books", books);
-        req.setAttribute("users", users);
+        req.getSession().setAttribute("books", books);
+        req.getSession().setAttribute("users", users);
 
         if (isUserAuthentic(req)) {
             backToMain(req, resp);
@@ -49,7 +49,7 @@ public class Main extends HttpServlet {
         System.out.println("POST received to Main");
 
         List<User> users = userManagerBean.getAll();
-        req.setAttribute("users", users);
+        req.getSession().setAttribute("users", users);
 
 
         List<Book> books;
@@ -66,7 +66,7 @@ public class Main extends HttpServlet {
         } else {
             books = bookManagerBean.getByOwner(owner);
         }
-        req.setAttribute("books", books);
+        req.getSession().setAttribute("books", books);
         backToMain(req, resp);
     }
 
