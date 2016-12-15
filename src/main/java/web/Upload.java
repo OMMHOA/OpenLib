@@ -39,9 +39,9 @@ public class Upload extends HttpServlet {
             request.getRequestDispatcher("Authenticate").forward(request, response);
         }
 
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        String genre = request.getParameter("genre");
+        String title = request.getParameter("newBookTitle");
+        String author = request.getParameter("newBookAuthor");
+        String genre = request.getParameter("newBookGenre");
 
         if (notValid(title, author, genre)) {
             backToMain(request, response);

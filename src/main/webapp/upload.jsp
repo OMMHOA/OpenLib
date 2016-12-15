@@ -16,15 +16,15 @@
 
 <form action="upload" method="post">
     <br/>
-    <input type="text" name="title" placeholder="Book title..">
+    <input type="text" name="newBookTitle" placeholder="Book title..">
     <br/>
-    <input type="text" name="author" placeholder="Author..">
+    <input type="text" name="newBookAuthor" placeholder="Author..">
     <br/>
     <label>
         Genre:
     </label>
     <br/>
-    <select name="genre" >
+    <select name="newBookGenre" >
         <option value="classic">Classic</option>
         <option value="not_classic">Not Classic</option>
     </select>
