@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c"
            uri="http://java.sun.com/jsp/jstl/core" %>
+<a href="/openlib">Back</a>
 <form action="Main" method="post">
     <select name="owner">
         <option value="all">List all books</option>
@@ -26,6 +27,7 @@
         <td>Title</td>
         <td>Genre</td>
         <td>Owner</td>
+        <c:if test="${sessionScope.user != null}"> <td>Options</td> </c:if>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +37,12 @@
             <td>${book.title}</td>
             <td>${book.genre}</td>
             <td>${book.owner.username}</td>
+            <c:if test="${sessionScope.user != null &&
+             book.owner.username == sessionScope.user.username}">
+                <td>
+                    <a href="modify?book=${book.id}">Modify</a>
+                </td>
+            </c:if>
         </tr>
     </c:forEach>
     </tbody>

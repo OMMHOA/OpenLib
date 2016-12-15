@@ -31,4 +31,8 @@ public class BookManagerBean {
     public List<Book> getByAuthor(String author) {
         return bookFacade.findAllByAuthor(author.toLowerCase());
     }
+
+    public Book getById(int id) {
+        return bookFacade.find(id);
+    }
 }
