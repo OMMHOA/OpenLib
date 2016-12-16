@@ -39,4 +39,8 @@ public class BookManagerBean {
     public void remove(Book book) {
         bookFacade.remove(book);
     }
+
+    public void update(Book book) {
+        bookFacade.edit(book);
+    }
 }

@@ -4,3 +4,5 @@
     <title>Open Library</title>
 </head
 <body>
+<a href="/openlib">Back to login</a>
+<a href="Main">Back to main</a>

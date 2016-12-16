@@ -5,5 +5,5 @@
 <form action="logout" method="post">
     <input type="submit" value="log out">
 </form>
-<jsp:include page="nologin.jsp"/>
+<jsp:include page="list_and_search.jsp"/>
 <jsp:include page="footer.jsp"/>

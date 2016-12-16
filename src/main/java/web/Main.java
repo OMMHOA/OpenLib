@@ -76,6 +76,5 @@ public class Main extends HttpServlet {
         User user = checkSessionAndGetUser(request);
         return user != null && !notValid(user.getUsername(), user.getPassword())
                 && userManagerBean.isAuthCorrect(user);
-
     }
 }
