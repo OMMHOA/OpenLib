@@ -52,6 +52,17 @@ public class Main extends HttpServlet {
 
         List<Book> books;
 
+        books = queryBooks(req, bookManagerBean);
+        req.getSession().setAttribute(BOOKS, books);
+        if (isUserAuthentic(req)) {
+            backToMainJsp(req, resp);
+        } else {
+            backToNologinJsp(req, resp);
+        }
+    }
+
+    static List<Book> queryBooks(HttpServletRequest req, BookManagerBean bookManagerBean) {
+        List<Book> books;
         String title = req.getParameter(TITLE);
         String author = req.getParameter(AUTHOR);
         String owner = req.getParameter(OWNER);
@@ -64,12 +75,7 @@ public class Main extends HttpServlet {
         } else {
             books = bookManagerBean.getByOwner(owner);
         }
-        req.getSession().setAttribute(BOOKS, books);
-        if (isUserAuthentic(req)) {
-            backToMainJsp(req, resp);
-        } else {
-            backToNologinJsp(req, resp);
-        }
+        return books;
     }
 
     private boolean isUserAuthentic(HttpServletRequest request) {
