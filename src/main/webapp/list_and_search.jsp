@@ -36,10 +36,16 @@
             <td>${book.title}</td>
             <td>${book.genre}</td>
             <td>${book.owner.username}</td>
-            <c:if test="${sessionScope.user != null &&
-             book.owner.username == sessionScope.user.username}">
+            <c:if test="${sessionScope.user != null}">
                 <td>
-                    <a href="modify?book=${book.id}">Modify</a>
+                <c:choose>
+                    <c:when test="${book.owner.username == sessionScope.user.username}">
+                        <a href="modify?book=${book.id}">Modify</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="borrow?book=${book.id}">Borrow</a>
+                    </c:otherwise>
+                </c:choose>
                 </td>
             </c:if>
         </tr>

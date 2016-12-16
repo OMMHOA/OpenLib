@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static web.utility.Check.checkBookAndGetBook;
 import static web.utility.Check.checkSessionAndGetUser;
 import static web.utility.Check.notValid;
 import static web.utility.Navigation.backToMain;
@@ -33,7 +34,7 @@ public class Modify extends HttpServlet {
             return;
         }
 
-        Book book = getBookFromRequest(req);
+        Book book = checkBookAndGetBook(req, bookManagerBean);
         if (book == null) {
             backToMain(req, resp);
             return;
@@ -48,7 +49,7 @@ public class Modify extends HttpServlet {
 
         System.out.println(req.getParameter("book"));
 
-        Book book = getBookFromRequest(req);
+        Book book = checkBookAndGetBook(req, bookManagerBean);
         if (book == null) {
             System.out.println("Book is null.");
             backToMain(req, resp);
@@ -66,12 +67,5 @@ public class Modify extends HttpServlet {
         bookManagerBean.update(book);
 
         backToMain(req, resp);
-    }
-
-    private Book getBookFromRequest(HttpServletRequest req) {
-        String bookIdString = req.getParameter("book");
-        if (notValid(bookIdString)) return null;
-        int bookId = Integer.parseInt(bookIdString);
-        return bookManagerBean.getById(bookId);
     }
 }
